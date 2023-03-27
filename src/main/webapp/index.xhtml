@@ -5,7 +5,18 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
+
+<h:head/>
+<h:body>
+    <h2>Planes:</h2>
+    <ol>
+        <ui:repeat value="#{planes.allPlanes}" var="plane">
+            <li>#{plane.model}</li>
+        </ui:repeat>
+    </ol>
+    <h:form>
+        <h:inputText value="#{planes.planeToCreate.model}" required="true" />
+        <h:commandButton value="Add new plane" action="#{planes.createPlane()}" />
+    </h:form>
+</h:body>
 </html>
