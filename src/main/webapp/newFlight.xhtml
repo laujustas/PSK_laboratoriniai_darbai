@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h2>New flight</h2>
+    <h:form>
+        <h3>Select plane: </h3>
+        <h:dataTable value = "#{planes.allPlanes}" var = "plane">
+            <h:column>
+                <f:facet name = "header">Model</f:facet>
+                #{plane.model}
+            </h:column>
+            <h:column>
+                <f:facet name = "header">Registration</f:facet>
+                #{plane.registration}
+            </h:column>
+            <h:column>
+                <f:facet name = "header">Flight hours</f:facet>
+                #{plane.flightHours}
+            </h:column>
+            <h:column>
+                <f:facet name = "header">Assign</f:facet>
+                <h:commandButton value="Assign" action="#{newFlight.assignPlane(plane)}" />
+            </h:column>
+        </h:dataTable>
+    </h:form>
+    <h3>Enter flight information: </h3>
+    <h:form>
+        <h:outputLabel>Name </h:outputLabel>
+        <h:inputText value="#{newFlight.flight.name}" required="true" />
+        <h:outputLabel>Departs from </h:outputLabel>
+        <h:inputText value="#{newFlight.flight.departure_airport}" required="true" />
+        <h:outputLabel>Departure time </h:outputLabel>
+        <h:inputText value="#{newFlight.flight.departure_time}" required="true" />
+        <h:outputLabel>Arrives at </h:outputLabel>
+        <h:inputText value="#{newFlight.flight.arrival_airport}" required="true" />
+        <h:outputLabel>Arrival time </h:outputLabel>
+        <h:inputText value="#{newFlight.flight.arrival_time}" required="true" />
+
+        <h:commandButton value="Submit" action="#{newFlight.createFlight()}" />
+    </h:form>
+
+    <h:link outcome="index" value="Main page"/>
+
+</f:view>
+</html>

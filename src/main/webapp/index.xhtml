@@ -8,15 +8,9 @@
 
 <h:head/>
 <h:body>
-    <h2>Planes:</h2>
-    <ol>
-        <ui:repeat value="#{planes.allPlanes}" var="plane">
-            <li>#{plane.model}</li>
-        </ui:repeat>
-    </ol>
-    <h:form>
-        <h:inputText value="#{planes.planeToCreate.model}" required="true" />
-        <h:commandButton value="Add new plane" action="#{planes.createPlane()}" />
-    </h:form>
+    <h:link outcome="employee" value="View all employees"/>
+    <h:link outcome="flight" value="View all flights"/>
+    <h:link outcome="plane" value="View all planes"/>
+    <h:link outcome="ticket" value="View all tickets"/>
 </h:body>
 </html>

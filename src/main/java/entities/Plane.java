@@ -5,9 +5,11 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Getter @Setter
 @NamedQueries({
         @NamedQuery(name = "Plane.findAll", query = "select a from Plane as a")
 })
@@ -23,11 +25,20 @@ public class Plane {
     @Getter @Setter
     private String model;
 
-    public Plane() {
-    }
+    @Size(max = 7)
+    @Column(name = "registration")
+    @Getter @Setter
+    private String registration;
 
-    public Plane(String model) {
-        this.model = model;
+    @Column(name = "flight_hours")
+    @Getter @Setter
+    private Integer flightHours;
+
+    @OneToMany(mappedBy = "plane")
+    @Getter @Setter
+    private List<Flight> flights;
+
+    public Plane() {
     }
 
     @Override
@@ -35,12 +46,11 @@ public class Plane {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Plane plane = (Plane) o;
-        return Objects.equals(plane_id, plane.plane_id) &&
-                Objects.equals(model, plane.model);
+        return Objects.equals(plane_id, plane.plane_id) && Objects.equals(registration, plane.registration);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(plane_id, model);
+        return Objects.hash(plane_id, registration);
     }
 }

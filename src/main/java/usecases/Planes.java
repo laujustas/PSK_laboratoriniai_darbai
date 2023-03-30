@@ -37,6 +37,12 @@ public class Planes {
     @Transactional
     public String createPlane() {
         this.planesDAO.persist(planeToCreate);
-        return "success";
+        return "plane?faces-redirect=true";
+    }
+
+    @Transactional
+    public String deletePlane(Plane planeToDelete) {
+        this.planesDAO.delete(planeToDelete);
+        return "plane?faces-redirect=true";
     }
 }
