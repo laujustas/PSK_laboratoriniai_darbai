@@ -39,10 +39,36 @@
                 #{flight.plane.registration}
             </h:column>
 
+            <h:column>
+                <f:facet name = "header">Assign employee</f:facet>
+                <h:inputText binding="#{input}" />
+                <h:commandButton value="Assign" action="#{flights.assignEmployee(input.value, flight.flight_id)}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name = "header">View assigned employees</f:facet>
+                <h:commandButton value="View" action="#{flights.loadEmployeesByFlightId(flight.flight_id)}" />
+            </h:column>
+
         </h:dataTable>
     </h:form>
 
+    <h:dataTable value = "#{flights.flightEmployees}" var = "employee">
+        <h:column>
+            <f:facet name = "header">Name</f:facet>
+            #{employee.name}
+        </h:column>
+        <h:column>
+            <f:facet name = "header">Surname</f:facet>
+            #{employee.surname}
+        </h:column>
+        <h:column>
+            <f:facet name = "header">Role</f:facet>
+            #{employee.role}
+        </h:column>
+    </h:dataTable>
+
 </f:view>
-<h:link outcome="createFlight" value="Create flight"/>
+<h:link outcome="newFlight" value="Create flight"/>
 <h:link outcome="index" value="Main page"/>
 </html>

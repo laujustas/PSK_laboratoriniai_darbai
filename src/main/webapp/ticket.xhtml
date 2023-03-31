@@ -26,12 +26,51 @@
                 #{ticket._bought}
             </h:column>
             <h:column>
+                <f:facet name = "header">Flight name</f:facet>
+                #{ticket.flight.name}
+            </h:column>
+            <h:column>
+                <f:facet name = "header">Departure time</f:facet>
+                #{ticket.flight.departure_time}
+            </h:column>
+            <h:column>
+                <f:facet name = "header">Plane model</f:facet>
+                #{ticket.flight.plane.model}
+            </h:column>
+            <h:column>
+                <f:facet name = "header">Flight pilot</f:facet>
+                #{flights.loadFlightPilot(ticket.flight.flight_id)}
+                #{flights.flightPilot.name}
+                #{flights.flightPilot.surname}
+            </h:column>
+            <h:column>
                 <f:facet name = "header">Delete ticket</f:facet>
                 <h:commandButton value="Delete" action="#{tickets.deleteTicket(ticket)}" />
             </h:column>
         </h:dataTable>
     </h:form>
     <h3>Add new ticket: </h3>
+    <h:form>
+        <h3>Select flight: </h3>
+        <h:dataTable value = "#{flights.allFlights}" var = "flight">
+            <h:column>
+                <f:facet name = "header">Name</f:facet>
+                #{flight.name}
+            </h:column>
+            <h:column>
+                <f:facet name = "header">Departs from</f:facet>
+                #{flight.departure_airport}
+            </h:column>
+            <h:column>
+                <f:facet name = "header">Departs at</f:facet>
+                #{flight.departure_time}
+            </h:column>
+            <h:column>
+                <f:facet name = "header">Assign flight to ticket</f:facet>
+                <h:commandButton value="Assign" action="#{tickets.assignFlight(flight)}" />
+            </h:column>
+        </h:dataTable>
+    </h:form>
     <h:form>
         <h:outputLabel>Ticket class </h:outputLabel>
         <h:inputText value="#{tickets.ticketToCreate.ticket_class}" required="true" />

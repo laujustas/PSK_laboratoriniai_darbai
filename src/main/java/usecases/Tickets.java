@@ -1,23 +1,27 @@
 package usecases;
 
+import entities.Flight;
 import entities.Ticket;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.inject.Model;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.Setter;
 import persistence.TicketsDAO;
 
+import java.io.Serializable;
 import java.util.List;
 
-@Model
-public class Tickets {
+@ViewScoped
+@Named
+@Getter @Setter
+public class Tickets implements Serializable {
     @Inject
     private TicketsDAO ticketsDAO;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     private Ticket ticketToCreate = new Ticket();
 
     @Getter @Setter
@@ -30,6 +34,10 @@ public class Tickets {
 
     public void loadTickets(){
         this.allTickets = ticketsDAO.loadAll();
+    }
+
+    public void assignFlight(Flight flight){
+        this.ticketToCreate.setFlight(flight);
     }
 
     @Transactional

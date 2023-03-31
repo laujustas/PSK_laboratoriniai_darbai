@@ -6,13 +6,15 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Getter @Setter
 @NamedQueries({
-        @NamedQuery(name = "Flight.findAll", query = "select a from Flight as a")
+        @NamedQuery(name = "Flight.findAll", query = "select a from Flight as a"),
+        @NamedQuery(name = "Flight.findAllFlightEmployees", query = "select a.employees from Flight as a where a.flight_id = :flight_id")
 })
 @Table(name = "Flight", schema = "public")
 public class Flight {
@@ -57,6 +59,15 @@ public class Flight {
     @NotNull
     @Getter @Setter
     private Integer arrival_time;
+
+    @ManyToMany
+    @JoinTable(name = "employee_flight", joinColumns = @JoinColumn(name = "flight_id"), inverseJoinColumns = @JoinColumn(name = "employee_id"))
+    @Getter @Setter
+    private List<Employee> employees = new ArrayList<>();
+
+    public void addEmployee(Employee employee){
+        employees.add(employee);
+    }
 
     public Integer PlaneIdGetter(){
         return plane.getPlane_id();

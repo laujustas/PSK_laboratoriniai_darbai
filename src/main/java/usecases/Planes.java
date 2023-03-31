@@ -1,13 +1,13 @@
 package usecases;
 
 import entities.Plane;
+import jakarta.enterprise.inject.Model;
 import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.Setter;
 import persistence.PlanesDAO;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.inject.Model;
 import jakarta.inject.Inject;
 import java.util.List;
 
