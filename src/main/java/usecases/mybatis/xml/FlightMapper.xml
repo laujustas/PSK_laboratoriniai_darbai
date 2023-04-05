@@ -15,7 +15,9 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="plane_id" jdbcType="INTEGER" property="planeId" />
 
+    <association property="plane" resultMap="mybatis.dao.PlaneMapper.BaseResultMap"/>
     <collection property="tickets" javaType="ArrayList" ofType="mybatis.model.Ticket" column="flight_id" select="selectFlightTickets"/>
+    <collection property="employees" javaType="ArrayList" ofType="mybatis.model.Employee" column="flight_id" select="selectEmployeesForFlight"/>
 
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -80,5 +82,11 @@
     SELECT t.*
     FROM public.ticket t
     WHERE t.flight_id = #{id}
+  </select>
+  <select id="selectEmployeesForFlight" resultType="mybatis.model.Employee">
+    SELECT e.*
+    FROM public.employee e
+        JOIN employee_flight ef on e.employee_id = ef.employee_id
+    WHERE ef.employee_id = #{id}
   </select>
 </mapper>

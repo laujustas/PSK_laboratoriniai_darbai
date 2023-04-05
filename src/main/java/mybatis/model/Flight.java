@@ -4,6 +4,9 @@ import java.util.List;
 
 public class Flight {
     private List<Ticket> tickets;
+    private Plane plane;
+
+    private List<Employee> employees;
 
     public List<Ticket> getTickets(){
         return tickets;
@@ -11,6 +14,22 @@ public class Flight {
 
     public void setTickets(List<Ticket> tickets){
         this.tickets = tickets;
+    }
+
+    public Plane getPlane(){
+        return plane;
+    }
+
+    public void setPlane(Plane plane){
+        this.plane = plane;
+    }
+
+    public List<Employee> getEmployees(){
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees){
+        this.employees = employees;
     }
     /**
      *

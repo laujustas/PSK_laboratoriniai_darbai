@@ -12,6 +12,9 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="role" jdbcType="VARCHAR" property="role" />
     <result column="surname" jdbcType="VARCHAR" property="surname" />
+
+    <collection property="flights" javaType="ArrayList" ofType="mybatis.model.Flight" column="employee_id" select="selectFLightsForEmployee"/>
+
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
@@ -64,5 +67,11 @@
     -->
     select employee_id, cell_phone, name, role, surname
     from public.employee
+  </select>
+  <select id="selectFLightsForEmployee" resultType="mybatis.model.Flight">
+    SELECT f.*
+    FROM public.flight f
+        JOIN employee_flight ef on f.flight_id = ef.flight_id
+    WHERE ef.employee_id = #{id}
   </select>
 </mapper>

@@ -6,6 +6,7 @@ import jakarta.enterprise.inject.Model;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.Setter;
 import mybatis.dao.TicketMapper;
@@ -29,6 +30,9 @@ public class TicketsMybatis{
     @Getter @Setter
     private List<Ticket> allTickets;
 
+    @Getter @Setter
+    private Ticket ticketToUpdate = new Ticket();
+
     public void loadTickets() {
         this.allTickets = ticketMapper.selectAll();
     }
@@ -36,5 +40,17 @@ public class TicketsMybatis{
     @PostConstruct
     public void init(){
         this.loadTickets();
+    }
+
+    @Transactional
+    public String deleteTicket(Integer ticket_id){
+        ticketMapper.deleteByPrimaryKey(ticket_id);
+        return "/mybatis/ticket?faces-redirect=true";
+    }
+
+    @Transactional
+    public String updateTicket(){
+        ticketMapper.updateByPrimaryKey(ticketToUpdate);
+        return "/mybatis/ticket?faces-redirect=true";
     }
 }

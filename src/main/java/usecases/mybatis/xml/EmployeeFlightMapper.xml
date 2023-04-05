@@ -19,6 +19,10 @@
     insert into public.employee_flight (flight_id, employee_id)
     values (#{flightId,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER})
   </insert>
+  <delete id="deleteByEmployeeId" parameterType="java.lang.Integer">
+    DELETE from employee_flight ef
+    WHERE ef.employee_id = #{employee_id}
+  </delete>
   <select id="selectAll" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
