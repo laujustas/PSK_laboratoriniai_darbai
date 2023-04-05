@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias type="mybatis.model.Employee" alias="Employee"/>
+        <typeAlias type="mybatis.model.Flight" alias="Flight"/>
+        <typeAlias type="mybatis.model.Plane" alias="Plane"/>
+        <typeAlias type="mybatis.model.Ticket" alias="Ticket"/>
+        <typeAlias type="mybatis.model.EmployeeFlight" alias="EmployeeFlight"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="MANAGED"/>
+            <dataSource type="JNDI">
+                <property name="data_source" value="java:jboss/datasources/PostgresDS"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mybatis.xml/EmployeeMapper.xml"/>
+        <mapper resource="mybatis.xml/FlightMapper.xml"/>
+        <mapper resource="mybatis.xml/PlaneMapper.xml"/>
+        <mapper resource="mybatis.xml/TicketMapper.xml"/>
+        <mapper resource="mybatis.xml/EmployeeFlightMapper.xml"/>
+    </mappers>
+</configuration>
