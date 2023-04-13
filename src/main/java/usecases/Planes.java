@@ -2,6 +2,8 @@ package usecases;
 
 import entities.Plane;
 import jakarta.enterprise.inject.Model;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,12 +11,19 @@ import persistence.PlanesDAO;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.inject.Inject;
+import services.PlaneRegistrationChecker;
+
+import java.io.Serializable;
 import java.util.List;
 
-@Model
-public class Planes {
+@ViewScoped
+@Named
+public class Planes implements Serializable {
     @Inject
     private PlanesDAO planesDAO;
+
+    @Inject
+    private PlaneRegistrationChecker planeRegistrationChecker;
 
     @Getter @Setter
     private Plane planeToCreate = new Plane();
@@ -36,6 +45,11 @@ public class Planes {
 
     @Transactional
     public String createPlane() {
+
+        if(!planeRegistrationChecker.checkPlaneRegistration(planeToCreate.getRegistration())){
+            return "plane?faces-redirect=true";
+        }
+
         this.planesDAO.persist(planeToCreate);
         return "plane?faces-redirect=true";
     }
