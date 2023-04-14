@@ -2,6 +2,7 @@ package usecases;
 
 import entities.Flight;
 import entities.Ticket;
+import interceptors.MyInterceptor;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -10,6 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.Setter;
 import persistence.TicketsDAO;
+import services.TicketTaxGenerator;
 
 import java.io.Serializable;
 import java.util.List;
@@ -20,6 +22,9 @@ import java.util.List;
 public class Tickets implements Serializable {
     @Inject
     private TicketsDAO ticketsDAO;
+
+    @Inject
+    private TicketTaxGenerator ticketTaxGenerator;
 
     @Getter @Setter
     private Ticket ticketToCreate = new Ticket();
@@ -41,7 +46,9 @@ public class Tickets implements Serializable {
     }
 
     @Transactional
+    @MyInterceptor
     public String createTicket(){
+        ticketToCreate.setPrice(ticketTaxGenerator.calculateTax(ticketToCreate.getPrice()));
         this.ticketsDAO.persist(ticketToCreate);
         return "ticket?faces-redirect=true";
     }

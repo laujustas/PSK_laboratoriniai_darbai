@@ -7,4 +7,10 @@
         <class>services.PlaneRegistrationCheckerEU</class>
 <!--        <class>services.PlaneRegistrationCheckerOther</class>-->
     </alternatives>
+    <interceptors>
+        <class>interceptors.InterceptorImpl</class>
+    </interceptors>
+    <decorators>
+        <class>decorator.TicketTaxGeneratorCustom</class>
+    </decorators>
 </beans>
