@@ -16,6 +16,8 @@ public class TicketsDAO {
         return em.createNamedQuery("Ticket.findAll", Ticket.class).getResultList();
     }
 
+    public Ticket findTicketById(Integer ticketId){ return this.em.find(Ticket.class, ticketId); }
+
     public void persist(Ticket ticket){
         this.em.persist(ticket);
     }
@@ -23,4 +25,6 @@ public class TicketsDAO {
     public void delete(Ticket ticket){
         this.em.remove(ticket);
     }
+
+    public void update(Ticket ticket) { this.em.merge(ticket); }
 }
