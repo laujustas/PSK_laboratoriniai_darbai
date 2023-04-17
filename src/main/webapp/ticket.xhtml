@@ -47,6 +47,10 @@
                 <f:facet name = "header">Delete ticket</f:facet>
                 <h:commandButton value="Delete" action="#{tickets.deleteTicket(ticket)}" />
             </h:column>
+            <h:column>
+                <f:facet name = "header">Update ticket</f:facet>
+                <h:link value="Update" outcome="ticketDetails?ticketId=#{ticket.ticket_id}" />
+            </h:column>
         </h:dataTable>
     </h:form>
     <h3>Add new ticket: </h3>

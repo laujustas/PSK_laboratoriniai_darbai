@@ -18,6 +18,10 @@ public class Ticket {
     @Getter @Setter
     private Integer ticket_id;
 
+    @Version
+    @Column(name = "OPT_LOCK_VERSION")
+    private Integer version;
+
     @ManyToOne
     @JoinColumn(name = "flight_id")
     @Getter @Setter
