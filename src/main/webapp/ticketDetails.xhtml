@@ -8,11 +8,18 @@
 <f:view>
     <h2>Ticket details:</h2>
     <h:form>
-        <h:outputLabel>Ticket class: #{updateTicket.ticket.ticket_class}</h:outputLabel>
+        <h:outputLabel>Ticket class: #{tickets.ticketsDAO.findTicketById(updateTicket.ticket.ticket_id).ticket_class}</h:outputLabel>
         <h:inputText value="#{updateTicket.ticket.ticket_class}" required="true" />
 
         <h:commandButton value="Update" action="#{updateTicket.updateTicket()}" />
         <h:outputText value="Ticket was already modified by another user. Do you still want to update?" rendered="#{param['error'] == 'optimistic-lock-exception'}" />
+        <h:commandButton value="Yes" action="#{updateTicket.updateTicketAfterOptLock()}" type="submit" rendered="#{param['error'] == 'optimistic-lock-exception'}" />
+    </h:form>
+    <h:form>
+        <h:outputText value="#{generateSeat.generatorStatus}"/>
+        <h:commandButton value="Generate seat?" disabled="#{generateSeat.isGeneratorRunning()}" action="#{generateSeat.generateSeatNumber()}">
+            <f:param name="ticketId" value="#{updateTicket.ticket.ticket_id}" />
+        </h:commandButton>
     </h:form>
 </f:view>
 <h:link outcome="ticket" value="Return to tickets"/>
